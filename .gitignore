@@ -1,2 +1,6 @@
 **/node_modules/
 ***/node_modules/
+dicussion/MOCK_DATA.csv
+videostream/Chris-Do.mp4
+web-socket/sample.txt
+graphql-app/client
