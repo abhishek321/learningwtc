@@ -1,0 +1,32 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Streamed Content</title>
+    <!-- Add any additional head elements here -->
+</head>
+<body>
+    <div id="content"></div>
+    <script>
+        fetch('/stream')
+            .then(response => {
+                const reader = response.body.getReader();
+                let decoder = new TextDecoder();
+                
+                function readChunk() {
+                    reader.read().then(({ done, value }) => {
+                        if (done) {
+                            console.log('Stream complete');
+                            return;
+                        }
+                        // Append chunk to the UI
+                        document.getElementById('content').textContent += decoder.decode(value, {stream: true});
+                        readChunk();
+                    });
+                }
+
+                readChunk();
+            });
+    </script>
+</body>
+</html>
